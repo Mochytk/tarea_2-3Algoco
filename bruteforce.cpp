@@ -38,7 +38,7 @@ int main()
     string S1, S2;
     int num, i, j;
 
-    ifstream archivo("cost_insert.txt");
+    ifstream archivo("costos/cost_insert.txt");
 
     if (!archivo.is_open())
     {
@@ -50,7 +50,7 @@ int main()
     while (archivo >> num)
         cost_insert[i++] = num;
 
-    ifstream archivo2("cost_delete.txt");
+    ifstream archivo2("costos/cost_delete.txt");
 
     if (!archivo.is_open())
     {
@@ -62,7 +62,7 @@ int main()
     while (archivo2 >> num)
         cost_delete[i++] = num;
 
-    ifstream archivo3("cost_replace.txt");
+    ifstream archivo3("costos/cost_replace.txt");
 
     if (!archivo.is_open())
     {
@@ -81,7 +81,7 @@ int main()
         }
     }
 
-    ifstream archivo4("cost_transpose.txt");
+    ifstream archivo4("costos/cost_transpose.txt");
 
     if (!archivo.is_open())
     {
