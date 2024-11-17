@@ -8,3 +8,5 @@ Costo de eliminar en la linea 28
 Costo de insertar en la linea 32
 
 Si se quiere dar valores aleatorios habría que importar la libreria random y cambiar esa linea por la función random y los rangos que se le quiera dar.
+
+En el generador de testcases está todo automatizado y si se quieren probar otras combinaciones solo hay que re ejecutar el archivo.
