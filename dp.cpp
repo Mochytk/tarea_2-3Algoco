@@ -3,6 +3,8 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
+
 
 using namespace std;
 
@@ -52,7 +54,7 @@ int distanciaEdicionDP(const string &S1, const string &S2)
     {
         for (int j = 1; j <= m; j++)
         {
-
+            
             // Ahora se calculan los costos de operaciones en las casillas adyacentes (menos la transpocisión).
             int costoSustitucion = dp[i - 1][j - 1] + costo_sub(S1[i - 1], S2[j - 1]);
             int costoInsercion = dp[i][j - 1] + costo_ins(S2[j - 1]);
@@ -60,16 +62,17 @@ int distanciaEdicionDP(const string &S1, const string &S2)
 
             // Se estudia cual es el mejor caso a elegir.
             dp[i][j] = min({costoSustitucion, costoInsercion, costoEliminacion});
-
+            
             // Finalmente, y en caso de que sea posible, comparamos este valor con el coste de transponer los carácteres.
             if (i > 1 && j > 1 && S1[i - 1] == S2[j - 2] && S1[i - 2] == S2[j - 1])
             {
                 dp[i][j] = min(dp[i][j], dp[i - 2][j - 2] + costo_trans(S1[i - 1], S1[i - 2]));
             }
+            
         }
     }
 
-    // Por último, la solución a nuestro problema está ienido en la esquina inferior derecha de nuestra matriz, en dp[n][m].
+    // Por último, la solución a nuestro problema está contenido en la esquina inferior derecha de nuestra matriz, en dp[n][m].
     return dp[n][m];
 }
 
@@ -142,8 +145,15 @@ int main()
 
     cin >> S1 >> S2;
 
+    auto inicio = chrono::high_resolution_clock::now();
+    
     int resultado = distanciaEdicionDP(S1, S2);
     cout << "La distancia mínima de edición es: " << resultado << endl;
+    
+    auto fin = chrono::high_resolution_clock::now();
+
+    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
 
     return 0;
 }
