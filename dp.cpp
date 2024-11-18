@@ -175,45 +175,6 @@ int main()
             cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
             cout << "--------------------------------------------" << endl;
         }
-    }    
-    ifstream archivoTest("testcases/test4/testcase_unico.txt");
-    string S1, S2;
-    archivoTest >> S1 >> S2;
-    archivoTest.close();
-
-    // Calcular la distancia de edición
-    auto inicio = chrono::high_resolution_clock::now();
-    int resultado = distanciaEdicionDP(S1, S2);
-    auto fin = chrono::high_resolution_clock::now();
-
-    // Mostrar resultados
-    cout << "Carpeta: test4 , Archivo: testcase_unico "<< endl;
-    cout << "S1: " << S1 << ", S2: " << S2 << endl;
-    cout << "La distancia mínima de edición es: " << resultado << endl;
-
-    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
-    cout << "--------------------------------------------" << endl;
-
-    // Test de palabra vacía
-    ifstream archivoTest("testcases/test1/testcase1.txt");
-    string S1, S2;
-    archivoTest >> S1 >> S2;
-    archivoTest.close();
-
-    // Calcular la distancia de edición
-    auto inicio = chrono::high_resolution_clock::now();
-    int resultado = distanciaEdicionDP(S1, S2);
-    auto fin = chrono::high_resolution_clock::now();
-
-    // Mostrar resultados
-    cout << "Carpeta: test1 , Archivo: test1 "<< endl;
-    cout << "S1: " << S1 << ", S2: " << S2 << endl;
-    cout << "La distancia mínima de edición es: " << resultado << endl;
-
-    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
-    cout << "--------------------------------------------" << endl;
-
+    }
     return 0;
 }
