@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
 
 using namespace std;
 
@@ -30,7 +31,54 @@ int costo_trans(char a, char b)
 }
 
 int distanciaEdicionBruteForce(const string &S1, const string &S2){
-    
+    int n = S1.size();
+    int m = S2.size();
+    int costo = 0;
+    if (S1 == S2)
+    {
+        return costo;
+    }
+
+    else if (S1.empty())
+    {
+        for (size_t i = 0; i < m; i++)
+        {
+            costo += costo_ins(S2[i]);
+        }
+        return costo;
+    }
+
+    else if (S2.empty())
+    {
+        for (size_t i = 0; i < n; i++)
+        {
+            costo += costo_del(S1[i]);
+        }
+        return costo;
+    }
+
+    else if (S1[0] == S2[0])
+    {
+        return distanciaEdicionBruteForce(S1.substr(1),S2.substr(1));
+    }
+
+    else{
+        // Buscamos el minimo de manera recursiva
+        costo = min({
+            (distanciaEdicionBruteForce(S1.substr(1), S2.substr(1)) + costo_sub(S1[0], S2[0])),
+            (distanciaEdicionBruteForce(S1, S2.substr(1)) + costo_ins(S2[0])),
+            (distanciaEdicionBruteForce(S1.substr(1), S2) + costo_del(S1[0]))
+        });
+        
+        // Chequeamos si la transposición es posible
+        if (S1[0] == S2[1] && S1[1] == S2[1]){
+            costo = min(costo, 
+            ((distanciaEdicionBruteForce(S1.substr(2), S2.substr(2)) + costo_trans(S1[0], S1[1])))
+            );
+        }
+
+        return costo;
+    }
 }
 
 int main()
@@ -102,8 +150,14 @@ int main()
 
     cin >> S1 >> S2;
 
+    auto inicio = chrono::high_resolution_clock::now();
+    
     int resultado = distanciaEdicionBruteForce(S1, S2);
     cout << "La distancia mínima de edición es: " << resultado << endl;
+    
+    auto fin = chrono::high_resolution_clock::now();
 
+    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
     return 0;
 }
