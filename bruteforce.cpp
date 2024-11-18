@@ -151,6 +151,9 @@ int main()
     string carpetas[] = {"testcases/test2", "testcases/test3", "testcases/test5"};
     string archivos[] = {"testcase_2.txt", "testcase_4.txt", "testcase_6.txt", "testcase_8.txt", "testcase_10.txt"};
     for(const string& carpeta : carpetas){
+        cout << "--------------------------------------------" << endl;
+        cout << "--------------------------------------------" << endl;
+        cout << "--------------------------------------------" << endl;
         for (const string& archivo : archivos) {
             string rutaTestcase = carpeta + "/" + archivo;
             ifstream archivoTest(rutaTestcase);

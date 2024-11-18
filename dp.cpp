@@ -142,18 +142,39 @@ int main()
             i++;
         }
     }
-
-    cin >> S1 >> S2;
-
-    auto inicio = chrono::high_resolution_clock::now();
     
-    int resultado = distanciaEdicionDP(S1, S2);
-    cout << "La distancia mínima de edición es: " << resultado << endl;
-    
-    auto fin = chrono::high_resolution_clock::now();
+    string carpetas[] = {"testcases/test2", "testcases/test3", "testcases/test5"};
+    string archivos[] = {"testcase_2.txt", "testcase_4.txt", "testcase_6.txt", "testcase_8.txt", "testcase_10.txt"};
+    for(const string& carpeta : carpetas){
+        cout << "--------------------------------------------" << endl;
+        cout << "--------------------------------------------" << endl;
+        cout << "--------------------------------------------" << endl;
+        for (const string& archivo : archivos) {
+            string rutaTestcase = carpeta + "/" + archivo;
+            ifstream archivoTest(rutaTestcase);
+            if (!archivoTest.is_open()) {
+                cerr << "No se pudo abrir el archivo de prueba: " << rutaTestcase << endl;
+                continue; // Salta a la siguiente iteración
+            }
 
-    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+            string S1, S2;
+            archivoTest >> S1 >> S2;
+            archivoTest.close();
 
+            // Calcular la distancia de edición
+            auto inicio = chrono::high_resolution_clock::now();
+            int resultado = distanciaEdicionDP(S1, S2);
+            auto fin = chrono::high_resolution_clock::now();
+
+            // Mostrar resultados
+            cout << "Carpeta: " << carpeta << ", Archivo: " << archivo << endl;
+            cout << "S1: " << S1 << ", S2: " << S2 << endl;
+            cout << "La distancia mínima de edición es: " << resultado << endl;
+
+            auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+            cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+            cout << "--------------------------------------------" << endl;
+        }
+    }
     return 0;
 }
