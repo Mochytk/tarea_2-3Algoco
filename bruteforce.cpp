@@ -148,38 +148,59 @@ int main()
         }
     }
 
-    string carpetas[] = {"testcases/test2", "testcases/test3", "testcases/test5"};
-    string archivos[] = {"testcase_2.txt", "testcase_4.txt", "testcase_6.txt", "testcase_8.txt", "testcase_10.txt"};
-    for(const string& carpeta : carpetas){
-        cout << "--------------------------------------------" << endl;
-        cout << "--------------------------------------------" << endl;
-        cout << "--------------------------------------------" << endl;
-        for (const string& archivo : archivos) {
-            string rutaTestcase = carpeta + "/" + archivo;
-            ifstream archivoTest(rutaTestcase);
-            if (!archivoTest.is_open()) {
-                cerr << "No se pudo abrir el archivo de prueba: " << rutaTestcase << endl;
-                continue; // Salta a la siguiente iteración
-            }
-
-            string S1, S2;
-            archivoTest >> S1 >> S2;
-            archivoTest.close();
-
-            // Calcular la distancia de edición
-            auto inicio = chrono::high_resolution_clock::now();
-            int resultado = distanciaEdicionBruteForce(S1, S2);
-            auto fin = chrono::high_resolution_clock::now();
-
-            // Mostrar resultados
-            cout << "Carpeta: " << carpeta << ", Archivo: " << archivo << endl;
-            cout << "S1: " << S1 << ", S2: " << S2 << endl;
-            cout << "La distancia mínima de edición es: " << resultado << endl;
-
-            auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-            cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+    bool unico = true;
+    cout << "Probar los casos arbitrarios o los unicos (Palabra Vacía y Palabras Invertidas)" << endl;
+    cout << "0: Arbitrarios" << endl;
+    cout << "1: Únicos" << endl;
+    cin >> unico;
+    if (!unico)
+    {
+        string carpetas[] = {"testcases/test2", "testcases/test3", "testcases/test5"};
+        string archivos[] = {"testcase_2.txt", "testcase_4.txt", "testcase_6.txt", "testcase_8.txt", "testcase_10.txt"};
+        for(const string& carpeta : carpetas){
             cout << "--------------------------------------------" << endl;
+            cout << "--------------------------------------------" << endl;
+            cout << "--------------------------------------------" << endl;
+            for (const string& archivo : archivos) {
+                string rutaTestcase = carpeta + "/" + archivo;
+                ifstream archivoTest(rutaTestcase);
+                if (!archivoTest.is_open()) {
+                    cerr << "No se pudo abrir el archivo de prueba: " << rutaTestcase << endl;
+                    continue; // Salta a la siguiente iteración
+                }
+
+                string S1, S2;
+                archivoTest >> S1 >> S2;
+                archivoTest.close();
+
+                // Calcular la distancia de edición
+                auto inicio = chrono::high_resolution_clock::now();
+                int resultado = distanciaEdicionBruteForce(S1, S2);
+                auto fin = chrono::high_resolution_clock::now();
+
+                // Mostrar resultados
+                cout << "Carpeta: " << carpeta << ", Archivo: " << archivo << endl;
+                cout << "S1: " << S1 << ", S2: " << S2 << endl;
+                cout << "La distancia mínima de edición es: " << resultado << endl;
+
+                auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+                cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+                cout << "--------------------------------------------" << endl;
+            }
         }
+    }
+    else{
+        cout << "Copie y pegue las palabras del testcase que quiera probar" << endl;
+        // Aquí haremos los casos unicos como el vacio y las palabras invertidas
+        cin >> S1 >> S2;
+        // Calcular la distancia de edición
+        auto inicio = chrono::high_resolution_clock::now();
+        int resultado = distanciaEdicionBruteForce(S1, S2);
+        auto fin = chrono::high_resolution_clock::now();
+        auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+        cout << "La distancia mínima de edición es: " << resultado << endl;
+        cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+        cout << "--------------------------------------------" << endl;
     }
     
     return 0;
