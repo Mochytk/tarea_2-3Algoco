@@ -71,7 +71,7 @@ int distanciaEdicionBruteForce(const string &S1, const string &S2){
         });
         
         // Chequeamos si la transposición es posible
-        if (S1[0] == S2[1] && S1[1] == S2[1]){
+        if (S1[0] == S2[1] && S1[1] == S2[0]){
             costo = min(costo, 
             ((distanciaEdicionBruteForce(S1.substr(2), S2.substr(2)) + costo_trans(S1[0], S1[1])))
             );
@@ -148,16 +148,36 @@ int main()
         }
     }
 
-    cin >> S1 >> S2;
+    string carpetas[] = {"testcases/test2", "testcases/test3", "testcases/test5"};
+    string archivos[] = {"testcase_2.txt", "testcase_4.txt", "testcase_6.txt", "testcase_8.txt", "testcase_10.txt"};
+    for(const string& carpeta : carpetas){
+        for (const string& archivo : archivos) {
+            string rutaTestcase = carpeta + "/" + archivo;
+            ifstream archivoTest(rutaTestcase);
+            if (!archivoTest.is_open()) {
+                cerr << "No se pudo abrir el archivo de prueba: " << rutaTestcase << endl;
+                continue; // Salta a la siguiente iteración
+            }
 
-    auto inicio = chrono::high_resolution_clock::now();
-    
-    int resultado = distanciaEdicionBruteForce(S1, S2);
-    cout << "La distancia mínima de edición es: " << resultado << endl;
-    
-    auto fin = chrono::high_resolution_clock::now();
+            string S1, S2;
+            archivoTest >> S1 >> S2;
+            archivoTest.close();
 
-    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-    cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+            // Calcular la distancia de edición
+            auto inicio = chrono::high_resolution_clock::now();
+            int resultado = distanciaEdicionBruteForce(S1, S2);
+            auto fin = chrono::high_resolution_clock::now();
+
+            // Mostrar resultados
+            cout << "Carpeta: " << carpeta << ", Archivo: " << archivo << endl;
+            cout << "S1: " << S1 << ", S2: " << S2 << endl;
+            cout << "La distancia mínima de edición es: " << resultado << endl;
+
+            auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
+            cout << "Tiempo de ejecución: " << duracion.count() << " ns" << endl;
+            cout << "--------------------------------------------" << endl;
+        }
+    }
+    
     return 0;
 }

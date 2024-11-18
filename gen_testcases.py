@@ -46,7 +46,7 @@ def generar_cadenas_intercaladas(largo):
     return cadena1, cadena2
 
 # Parámetros de generación de casos de prueba
-tamanos = [10, 50, 100, 500, 1000]  # Diferentes tamaños de cadena para probar el rendimiento
+tamanos = [2, 4, 6, 8, 10]  # Diferentes tamaños de cadena para probar el rendimiento
 num_casos = 5  # Número de casos de prueba por tamaño
 
 # Generar archivos de casos de prueba
@@ -77,16 +77,16 @@ palabras_invertidas = [
     "etnafele",     # elefante
     "anatnev",      # ventana
     "noicamargorp", # programación
-    "ollarased"     # desarrollo
+    "ollaorased"     # desarrollo
 ]
 
 # Generar archivos para test4
-for tamano in tamanos:
-    with open(f"testcases/test4/testcase_{tamano}.txt","w") as archivo:
-        for i in range(num_casos):
-            cadena1 = palabras_invertidas[i-1]
-            cadena2 = ''.join(reversed(palabras_invertidas[i-1]))
-            archivo.write(f"{cadena1} {cadena2}\n")
+
+with open(f"testcases/test4/testcase_unico.txt","w") as archivo:
+    for i in range(num_casos):
+        cadena1 = palabras_invertidas[i-1]
+        cadena2 = ''.join(reversed(palabras_invertidas[i-1]))
+        archivo.write(f"{cadena1} {cadena2}\n")
 
 for tamano in tamanos:
     with open(f"testcases/test5/testcase_{tamano}.txt", "w") as archivo:
